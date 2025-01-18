@@ -192,6 +192,24 @@
 			}
 			
 			
+			document.querySelectorAll('a.nav-link').forEach(anchor => {
+				anchor.addEventListener('click', function (e) {
+				  e.preventDefault();
+				  const targetId = this.getAttribute('href').slice(1); // Remove '#' from href
+				  const targetSection = document.getElementById(targetId);
+			  
+				  if (targetSection) {
+					const offset = document.querySelector('.navbar').offsetHeight; // Navbar height
+					const targetPosition = targetSection.offsetTop - offset; // Adjust position
+			  
+					window.scrollTo({
+					  top: targetPosition,
+					  behavior: 'smooth', // Smooth scrolling
+					});
+				  }
+				});
+			  });
+			  
 			
 			
 			
