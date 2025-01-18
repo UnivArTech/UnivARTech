@@ -1,3 +1,4 @@
+
 /* General Styles */
 body {
   font-family: 'Poppins', sans-serif;
@@ -17,19 +18,39 @@ body {
   /*box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3); /* Subtle shadow */
 }
 
-
+/*---
 .navbar {
   background: #1d2250;
   padding: 15px 0;
 }
+----*/
+
+.navbar {
+  background: #1d2250;
+  padding: 5px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+section {
+  scroll-margin-top: 80px; /* Ensure smooth scroll stops below navbar */
+}
+
+.section-title {
+  margin-top: 80px; /* Adds space above the titles */
+}
+
 
 .navbar-brand {
-  font-size: 1.8rem;
+  font-size: 1.2rem; /* Adjusted for a slimmer navbar */
   font-weight: 600;
   color: #fff;
 }
 
 .navbar-nav .nav-link {
+  font-size: 0.9rem; /* Smaller font size for links */
+  padding: 5px 10px; /* Reduced padding for slimmer links */
   color: #fff;
   transition: color 0.3s ease;
 }
@@ -37,6 +58,11 @@ body {
 .navbar-nav .nav-link:hover {
   color: #ff007f;
 }
+
+section {
+  scroll-margin-top: 70px; /* Adjust the value based on the navbar's height */
+}
+
 
 .hero {
   padding: 120px 20px;
@@ -62,12 +88,12 @@ body {
   0% {
     opacity: 0;           /* Fully transparent at the start */
     transform: translateY(20px); /* Slightly below its final position */
-    color: #ff007f;       /* Starting color */
+    color: #df81b0;       /* Starting color */
   }
   50% {
     opacity: 0.5;         /* Partially visible */
     transform: translateY(10px); /* Moves closer to its final position */
-    color: #ff5722;       /* Midway color */
+    color: #b051b4;       /* Midway color */
   }
   100% {
     opacity: 1;           /* Fully visible */
@@ -109,7 +135,7 @@ body {
   text-align: center;
   margin: 60px 0;
   font-size: 2.5rem;
-  color: #ff007f;
+  color:  #bb1fb2;
   font-weight: 600;
 }
 
@@ -132,6 +158,7 @@ body {
   padding: 60px 20px;
 }
 
+/*-----------
 .features .feature-box {
   background: rgba(0, 0, 0, 0.05);
   padding: 20px;
@@ -148,6 +175,40 @@ body {
   margin-bottom: 15px;
   color: #ff00ff;
 }
+-------*/
+
+.features .feature-box {
+  text-align: center;
+  padding: 20px;
+  border-radius: 15px;
+  margin: 20px; /* Utilise la marge du deuxième code */
+  background: rgba(0, 0, 0, 0.05);
+  height: 250px; /* Fixe la hauteur des boîtes */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centre le contenu verticalement */
+  transition: transform 0.3s ease; /* Pour une transition fluide lors du survol */
+}
+
+.features .feature-box:hover {
+  transform: translateY(-10px);
+}
+
+.features .feature-box i {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  color: #ff00ff;
+}
+
+.features .feature-box h4 {
+  margin-bottom: 10px; /* Espacement entre le titre et la description */
+}
+
+.features .feature-box p {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 
 .footer {
   text-align: center;
