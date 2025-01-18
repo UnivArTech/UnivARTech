@@ -39,9 +39,14 @@ section {
 
 
 .section-title {
-  margin-top: 80px; /* Adds space above the titles */
+  text-align: center;
+  margin: 60px 0;
+  font-size: 2.5rem;
+  color:  #1d2250;
+  font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add shadow */
+  margin-bottom: 0px; 
 }
-
 
 .navbar-brand {
   font-size: 1.2rem; /* Adjusted for a slimmer navbar */
@@ -128,16 +133,8 @@ section {
 }
 
 .hero .btn:hover {
-  background-color: #ff007f;
+  background-color: #f367ad;
   color: #fff;
-}
-
-.section-title {
-  text-align: center;
-  margin: 60px 0;
-  font-size: 2.5rem;
-  color:  #bb1fb2;
-  font-weight: 600;
 }
 
 .content-box {
@@ -264,3 +261,79 @@ p {
   border-radius: 10px;
   transition: all 0.3s ease;
 }
+
+
+
+/* About Section Specific Layout */
+.about-section .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.about-section .about-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  animation: slideInLeft 1.5s ease-in-out;
+}
+
+.about-section .about-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.about-section .about-text {
+  flex: 1;
+  margin-left: 20px; /* Adjust space between text and image */
+  animation: fadeInRight 1.5s ease-in-out;
+}
+
+.about-section .about-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+
+
+.animated {
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in-out;
+}
+
+.about-image.animated {
+  animation-name: slideInLeft;
+}
+
+.about-text.animated {
+  animation-name: fadeInRight;
+}
+
+/* Animations */
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+

@@ -191,7 +191,7 @@
 			  return (div);
 			}
 			
-			
+			/* to fix scrolling issues */
 			document.querySelectorAll('a.nav-link').forEach(anchor => {
 				anchor.addEventListener('click', function (e) {
 				  e.preventDefault();
@@ -199,8 +199,9 @@
 				  const targetSection = document.getElementById(targetId);
 			  
 				  if (targetSection) {
-					const offset = document.querySelector('.navbar').offsetHeight; // Navbar height
-					const targetPosition = targetSection.offsetTop - offset; // Adjust position
+					const navbarHeight = document.querySelector('.navbar').offsetHeight; // Navbar height
+					const extraOffset = 30; // Additional space above the section title
+					const targetPosition = targetSection.offsetTop - navbarHeight - extraOffset; // Adjusted scroll position
 			  
 					window.scrollTo({
 					  top: targetPosition,
@@ -209,6 +210,72 @@
 				  }
 				});
 			  });
+
+
+			  /** the about section */
+
+			  // Function to replay animations
+function replayAnimations() {
+	const aboutImage = document.querySelector('.about-image');
+	const aboutText = document.querySelector('.about-text');
+  
+	// Reset animation by removing and re-adding the animated class
+	aboutImage.classList.remove('animated');
+	aboutText.classList.remove('animated');
+  
+	// Force reflow (trick to restart animation)
+	void aboutImage.offsetWidth;
+	void aboutText.offsetWidth;
+  
+	// Re-add the animation class
+	aboutImage.classList.add('animated');
+	aboutText.classList.add('animated');
+  }
+  
+  // Intersection Observer for scrolling
+  const observer = new IntersectionObserver(entries => {
+	entries.forEach(entry => {
+	  if (entry.isIntersecting) {
+		replayAnimations(); // Replay animation when the "About" section is visible
+	  }
+	});
+  }, { threshold: 0.5 }); // Trigger when 50% of the section is visible
+  
+  // Observe the "About" section
+  observer.observe(document.getElementById('about'));
+  
+  // Handle navigation clicks
+  document.querySelectorAll('a.nav-link').forEach(anchor => {
+	anchor.addEventListener('click', function (e) {
+	  e.preventDefault();
+	  const targetId = this.getAttribute('href').slice(1);
+	  const targetSection = document.getElementById(targetId);
+  
+	  if (targetSection) {
+		const navbarHeight = document.querySelector('.navbar').offsetHeight;
+		const extraOffset = 20; // Add space above the section
+		const targetPosition = targetSection.offsetTop - navbarHeight - extraOffset;
+  
+		// Smooth scroll to the section
+		window.scrollTo({
+		  top: targetPosition,
+		  behavior: 'smooth',
+		});
+  
+		// Replay animations if it's the "About" section
+		if (targetId === 'about') {
+		  setTimeout(replayAnimations, 500); // Delay to allow scrolling to complete
+		}
+	  }
+	});
+  });
+  
+			  
+			  
+
+
+			  
+			  
 			  
 			
 			
