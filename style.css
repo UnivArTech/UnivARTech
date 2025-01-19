@@ -206,8 +206,7 @@ section {
 /* General About Section Styling */
 .about-section {
   position: relative; /* For the separator line */
-  padding: 40px 20px;
-  
+  padding-bottom: 20px;
 }
 
 
@@ -244,9 +243,38 @@ section {
   animation: fadeInRight 1.5s ease-in-out; /* Animation effect */
 }
 
-#about,#find {
+#about {
   padding: 100px 20px; /* Space around the section */
   scroll-margin-top: 40px; /* Adjust for sticky navbar */
+}
+
+/* Remove unwanted space */
+.about-section:last-child {
+  margin-bottom: 0; /* Ensure no margin below the last child of About Section */
+}
+
+.about-section:last-of-type {
+  margin-bottom: 0 !important; /* Force remove space at the bottom */
+}
+
+#find:first-of-type {
+  margin-top: 0 !important; /* Force remove space at the top */
+}
+
+#find:first-child {
+  margin-top: 0; /* Ensure no margin above the first child of Find Section */
+}
+
+#find {
+  margin-top: 0; /* Remove extra space above the Find section */
+  padding-top: 20px; 
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .about-section, #find {
+    padding: 10px; /* Further reduce padding on smaller screens */
+  }
 }
 
 .about-text p,
@@ -322,11 +350,56 @@ section {
     flex-direction: column; /* Stack content vertically */
     text-align: center;
   }
-  .about-image img,
-  .find-image img {
+  .about-image img{
     max-width: 90%; /* Reduce image size */
     margin-bottom: 20px;
   }
+}
+
+/* Content Box Find Styling */
+.content-box-find {
+  margin-top: -140px; /* Negative margin to pull the box closer */
+  margin-bottom: 20px; /* Maintain some spacing below the box */
+  background: rgba(0, 0, 0, 0.05); /* Light background for contrast */
+  padding: 30px; /* Content padding remains consistent */
+  border-radius: 15px;
+  max-width: 800px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Text Find Styling */
+.text-find {
+  padding: 20px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Find Items Styling */
+.find-items {
+  list-style-type: disc; /* Use a disc for list items */
+  padding-left: 20px; /* Indent list */
+}
+
+.find-items li {
+  margin-bottom: 10px; /* Space between list items */
+}
+
+.find-items strong {
+  color: #1d2250; /* Highlighted color for strong text */
+  font-weight: bold;
+}
+
+/* Animation for Find Section */
+.content-box-find[data-animation="slide-in-right"] {
+  animation: slideInRight 1.5s ease-in-out; /* Use the slide-in-right animation */
+}
+
+
+#find .find-image img {
+  max-width: 100%; /* Reduce image size */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 20px; /* Add spacing below the image */
+  margin-top: -140px;
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
