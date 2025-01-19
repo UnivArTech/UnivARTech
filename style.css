@@ -40,10 +40,6 @@ p {
   color: #ff007f; /* Highlight on hover */
 }
 
-#home, #submissions, #about, #organization, #venue, #contact {
-  padding-top: 100px; /* Space above the section content */
-  padding-bottom: 50px; /* Optional: Extra space below */
-}
 
 /* SECTION SCROLL MARGIN */
 section {
@@ -207,11 +203,20 @@ section {
 }
 
 /* ABOUT SECTION */
+/* General About Section Styling */
+.about-section {
+  position: relative; /* For the separator line */
+  padding: 40px 20px;
+  
+}
+
+
 .about-section .container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: 20px; /* Space between image and text */
 }
 
 .about-image,
@@ -232,18 +237,80 @@ section {
 .about-text,
 .find_text {
   flex: 1;
+  padding: 20px;
   font-size: 1rem;
   line-height: 1.6;
   margin: 20px;
   animation: fadeInRight 1.5s ease-in-out; /* Animation effect */
 }
 
-#about {
+#about,#find {
   padding: 100px 20px; /* Space around the section */
   scroll-margin-top: 40px; /* Adjust for sticky navbar */
 }
 
+.about-text p,
+.about-text ul {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.about-text h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Slide-in from Left */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-left {
+  animation: slideInLeft 1s ease-out forwards;
+}
+
+/* Slide-in from Right */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 1s ease-out forwards;
+}
+
+
+/* Reverse Row for "What You'll Find" Section */
+.flex-md-row-reverse {
+  flex-direction: row-reverse;
+}
+
 /* RESPONSIVE MEDIA QUERIES */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .about-section::before {
+    display: none; /* Hide separator on smaller screens */
+  }
+}
 @media (max-width: 768px) {
   .hero h1 {
     font-size: 2.5rem;

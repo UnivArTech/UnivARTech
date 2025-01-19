@@ -246,6 +246,28 @@ const observer = new IntersectionObserver((entries) => {
 	});
   }, { threshold: 0.5 }); // Trigger when 50% of the section is visible
   
+  // Scroll Animation for About Section
+const observer = new IntersectionObserver(
+	(entries, observer) => {
+	  entries.forEach((entry) => {
+		if (entry.isIntersecting) {
+		  const element = entry.target;
+		  const animationClass = element.getAttribute("data-animation");
+		  element.classList.add(animationClass); // Add animation class
+		  observer.unobserve(element); // Stop observing after animation triggers
+		}
+	  });
+	},
+	{ threshold: 0.5 } // Trigger animation when 50% of the element is visible
+  );
+  
+  // Apply observer to elements with data-animation attribute
+  document.querySelectorAll("[data-animation]").forEach((el) => {
+	observer.observe(el);
+  });
+  
+
+
   // Observe the "About" section
   const aboutSection = document.querySelector('#about');
   if (aboutSection) {
