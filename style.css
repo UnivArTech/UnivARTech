@@ -1,11 +1,11 @@
-/* General Styles */
+/* GENERAL STYLES */
 body {
   font-family: 'Poppins', sans-serif;
   background: #fffbfe;
   color: #333;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 p {
@@ -14,13 +14,13 @@ p {
   margin-bottom: 20px;
 }
 
-/* Navbar */
+/* NAVBAR STYLING */
 .navbar {
   background: #1d2250;
   padding: 10px 0;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 1000; /* Ensures navbar stays above other content */
 }
 
 .navbar-brand {
@@ -37,98 +37,110 @@ p {
 }
 
 .navbar-nav .nav-link:hover {
-  color: #ff007f;
+  color: #ff007f; /* Highlight on hover */
 }
 
-/* Section Scroll Margin */
+#home, #submissions, #about, #organization, #venue, #contact {
+  padding-top: 100px; /* Space above the section content */
+  padding-bottom: 50px; /* Optional: Extra space below */
+}
+
+/* SECTION SCROLL MARGIN */
 section {
-  scroll-margin-top: 80px; /* Adjust spacing below navbar */
+  scroll-margin-top: 100px; /* Ensures content aligns below navbar */
 }
 
-/* Section Title */
+
+/* SECTION TITLE */
 .section-title {
   text-align: center;
   margin: 40px 0;
   font-size: 2.5rem;
   color: #1d2250;
   font-weight: 600;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
 }
 
-/* Hero Section */
+/* HERO SECTION */
 .hero {
-  padding: 100px 20px;
+  position: relative;
+  padding-top: 120px; /* Adjust this to the height of your navbar */
+  height: calc(100vh - 180px); /* Full viewport height minus navbar height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   background: url('https://source.unsplash.com/1600x900/?technology,art') no-repeat center/cover;
   color: #1d1b6c;
-  text-align: center;
+  box-sizing: border-box;
 }
 
+/* Optional: Add scroll-margin for smooth scrolling */
+/* Add scroll margin to the Hero Section */
+#hero {
+  scroll-margin-top: 120px; /* Matches or exceeds the navbar height */
+}
+
+
+
+
+.hero img {
+  max-width: 60%; /* Limits the image width */
+  max-height: 60%; /* Prevents the image from taking up too much height */
+  height: auto; /* Maintains aspect ratio */
+  border-radius: 10px; /* Optional: Rounded corners */
+  margin-top: 0%;
+}
+
+/* Hero Section Text */
 .hero h1 {
-  font-size: 3rem;
-  font-weight: 600;
-  margin-bottom: 20px;
+  font-size: 2rem; /* Adjust font size for headings */
+  font-weight: bold;
+    margin-top: 20px;
 }
 
 .hero p {
-  font-size: 1.8rem;
+  font-size: 3rem;
   font-weight: bold;
+  margin-top: 0px;
   color: #1d2250;
-  margin-bottom: 30px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Add shadow for better readability */
 }
 
-.hero img {
-  max-width: 80%;
-  height: auto;
-  margin: 30px 0 -20px;
-  border-radius: 10px;
-}
 
-.hero .btn {
-  background-color: #ffeb3b;
-  color: #333;
-  font-weight: 600;
-  padding: 10px 20px;
-  border-radius: 25px;
-  text-transform: uppercase;
-  transition: background-color 0.3s ease;
-}
-
-.hero .btn:hover {
-  background-color: #f367ad;
-  color: #fff;
-}
-
-/* Tagline Animation */
+/* TAGLINE ANIMATION */
 .tagline {
   font-size: 1.5rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   text-align: center;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   margin-top: 20px;
-  animation: artisticFadeIn 3s ease-in-out infinite;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  animation: fadeInUpWithColor 3s ease-in-out infinite; /* Infinite animation loop */
 }
 
-@keyframes artisticFadeIn {
+/* FADE-IN-UP ANIMATION */
+@keyframes fadeInUpWithColor {
   0% {
-    opacity: 0;
-    transform: translateY(20px);
-    color: #df81b0;
+    opacity: 0; /* Fully transparent */
+    transform: translateY(20px); /* Start position: below */
+    color: #df81b0; /* Initial color */
   }
   50% {
-    opacity: 0.5;
-    transform: translateY(10px);
-    color: #b051b4;
+    opacity: 0.5; /* Semi-transparent */
+    transform: translateY(10px); /* Midpoint position */
+    color: #b051b4; /* Transition color */
   }
   100% {
-    opacity: 1;
-    transform: translateY(0);
-    color: #bb1fb2;
+    opacity: 1; /* Fully visible */
+    transform: translateY(0); /* Final position */
+    color: #1d2250; /* Final color */
   }
 }
 
-/* Content Box */
+/* CONTENT BOX */
 .content-box {
   background: rgba(0, 0, 0, 0.05);
   padding: 30px;
@@ -136,14 +148,14 @@ section {
   margin: 20px auto;
   max-width: 800px;
   text-align: left;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 .content-box:hover {
-  transform: translateY(-10px);
+  transform: translateY(-10px); /* Hover effect */
 }
 
-/* Features Section */
+/* FEATURES SECTION */
 .features {
   text-align: center;
   padding: 40px 20px;
@@ -151,11 +163,9 @@ section {
 
 .features .feature-box {
   background: rgba(0, 0, 0, 0.05);
-  text-align: center;
   padding: 20px;
   border-radius: 15px;
   margin: 20px;
-  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -163,21 +173,21 @@ section {
 }
 
 .features .feature-box:hover {
-  transform: translateY(-10px);
+  transform: translateY(-10px); /* Hover effect */
 }
 
 .features .feature-box i {
-  font-size: 2rem;
+  font-size: 2rem; /* Icon size */
   margin-bottom: 10px;
   color: #ff00ff;
 }
 
 .features .feature-box h4 {
   margin-bottom: 10px;
-  font-size: 1.2rem;
+  font-size: 1.2rem; /* Box title size */
 }
 
-/* Footer */
+/* FOOTER */
 .footer {
   text-align: center;
   padding: 30px 20px;
@@ -187,16 +197,16 @@ section {
 }
 
 .footer a {
-  color: #ff007f;
+  color: #ff007f; /* Link color */
   text-decoration: none;
   font-weight: 600;
 }
 
 .footer a:hover {
-  color: #fff;
+  color: #fff; /* Change color on hover */
 }
 
-/* About Section Styling */
+/* ABOUT SECTION */
 .about-section .container {
   display: flex;
   flex-wrap: wrap;
@@ -208,7 +218,7 @@ section {
 .find-image {
   flex: 1;
   text-align: center;
-  animation: slideInLeft 1.5s ease-in-out;
+  animation: slideInLeft 1.5s ease-in-out; /* Animation effect */
 }
 
 .about-image img,
@@ -216,7 +226,7 @@ section {
   max-width: 100%;
   height: auto;
   border-radius: 10px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); /* Add depth */
 }
 
 .about-text,
@@ -225,83 +235,52 @@ section {
   font-size: 1rem;
   line-height: 1.6;
   margin: 20px;
-  animation: fadeInRight 1.5s ease-in-out;
+  animation: fadeInRight 1.5s ease-in-out; /* Animation effect */
 }
 
-/* Responsive Adjustments for Smaller Screens */
+#about {
+  padding: 100px 20px; /* Space around the section */
+  scroll-margin-top: 40px; /* Adjust for sticky navbar */
+}
+
+/* RESPONSIVE MEDIA QUERIES */
 @media (max-width: 768px) {
-  .about-section .container {
-    flex-direction: column; /* Stack items vertically */
-    text-align: center;
-  }
-
-  .about-image img,
-  .find-image img {
-    max-width: 90%;
-    margin-bottom: 20px;
-  }
-
-  .about-text,
-  .find_text {
-    margin: 20px 0;
-  }
-}
-
-/* Responsive Media Queries */
-
-/* Mobile First Approach */
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-.navbar-nav .nav-link {
-  font-size: 0.8rem;
-  padding: 5px;
-}
-
-.hero h1 {
-  font-size: 2rem;
-}
-.hero p {
-  font-size: 1.2rem;
-  margin: 10px 0;
-}
-.hero img {
-  max-width: 90%;
-}
-
-.features .feature-box {
-  margin: 10px;
-  padding: 10px;
-  font-size: 0.9rem;
-}
-
-.footer {
-  font-size: 0.8rem;
-}
-
-/* Tablet Styles */
-@media (min-width: 769px) and (max-width: 1024px) {
   .hero h1 {
     font-size: 2.5rem;
   }
-  .features .feature-box {
-    font-size: 1rem;
+  .hero p {
+    font-size: 1.4rem;
+  }
+  .about-section .container {
+    flex-direction: column; /* Stack content vertically */
+    text-align: center;
+  }
+  .about-image img,
+  .find-image img {
+    max-width: 90%; /* Reduce image size */
+    margin-bottom: 20px;
   }
 }
 
-/* Desktop Styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero h1 {
+    font-size: 2.5rem; /* Adjust heading size for tablets */
+  }
+  .features .feature-box {
+    font-size: 1rem; /* Adjust feature box text */
+  }
+}
+
 @media (min-width: 1025px) {
   .navbar-nav .nav-link {
     font-size: 1rem;
     padding: 10px;
   }
   .hero h1 {
-    font-size: 3rem;
+    font-size: 3rem; /* Large heading for desktops */
   }
   .features .feature-box {
     padding: 20px;
-    font-size: 1.1rem;
+    font-size: 1.1rem; /* Larger feature box text */
   }
 }

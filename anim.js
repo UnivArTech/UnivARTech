@@ -41,36 +41,36 @@ function createBubble() {
   bubble.style.zIndex = over_or_under === "over" ? "1001" : "0";
 
   const div1 = createDiv("auto", "auto");
-  div1.style.cssText = `
+  div1.style.cssText = 
     top: 1px;
     left: 0px;
     bottom: 1px;
     right: 0px;
     border-left: 1px solid ${colours[3]};
     border-right: 1px solid ${colours[1]};
-  `;
+  ;
   bubble.appendChild(div1);
 
   const div2 = createDiv("auto", "auto");
-  div2.style.cssText = `
+  div2.style.cssText = 
     top: 0px;
     left: 1px;
     right: 1px;
     bottom: 0px;
     border-top: 1px solid ${colours[0]};
     border-bottom: 1px solid ${colours[2]};
-  `;
+  ;
   bubble.appendChild(div2);
 
   const div3 = createDiv("auto", "auto");
-  div3.style.cssText = `
+  div3.style.cssText = 
     left: 1px;
     right: 1px;
     bottom: 1px;
     top: 1px;
     background-color: ${colours[4]};
     opacity: 0.5;
-  `;
+  ;
   bubble.appendChild(div3);
 
   return bubble;
@@ -83,8 +83,8 @@ function startBubbles() {
 
     for (let c = 0; c < bubbles; c++) {
       if (!bubby[c]) {
-        bubb[c].left = `${(bubbx[c] = x)}px`;
-        bubb[c].top = `${(bubby[c] = y - 3)}px`;
+        bubb[c].left = ${(bubbx[c] = x)}px;
+        bubb[c].top = ${(bubby[c] = y - 3)}px;
         bubb[c].visibility = "visible";
         bubbs[c] = 3;
         break;
@@ -110,11 +110,11 @@ function updateBubble(i) {
       bubbx[i] < sleft + swide + bubbs[i]
     ) {
       if (Math.random() < (bubbs[i] / shigh) * 2 && bubbs[i]++ < 8) {
-        bubb[i].width = `${bubbs[i]}px`;
-        bubb[i].height = `${bubbs[i]}px`;
+        bubb[i].width = ${bubbs[i]}px;
+        bubb[i].height = ${bubbs[i]}px;
       }
-      bubb[i].top = `${bubby[i]}px`;
-      bubb[i].left = `${bubbx[i]}px`;
+      bubb[i].top = ${bubby[i]}px;
+      bubb[i].left = ${bubbx[i]}px;
     } else {
       bubb[i].visibility = "hidden";
       bubby[i] = 0;
@@ -174,6 +174,37 @@ document.querySelectorAll("a.nav-link").forEach((anchor) => {
   });
 });
 
+
+// Force the page to start at the hero section on refresh
+window.onload = () => {
+	const heroSection = document.getElementById('hero');
+	if (heroSection) {
+	  heroSection.scrollIntoView({ behavior: 'auto', block: 'start' });
+	}
+  };
+  
+  // Smooth scrolling for navigation links
+  document.querySelectorAll("a.nav-link").forEach((anchor) => {
+	anchor.addEventListener("click", function (e) {
+	  e.preventDefault();
+	  const targetId = this.getAttribute("href").slice(1); // Extract the target ID
+	  const targetSection = document.getElementById(targetId);
+  
+	  if (targetSection) {
+		const navbarHeight = document.querySelector(".navbar").offsetHeight || 0;
+		const extraOffset = 20; // Space above the section
+		const targetPosition = targetSection.offsetTop - navbarHeight - extraOffset;
+  
+		// Smooth scroll to the section
+		window.scrollTo({
+		  top: targetPosition,
+		  behavior: "smooth",
+		});
+	  }
+	});
+  });
+  
+
 /******************************
  * About Section Animations *
  ******************************/
@@ -221,31 +252,47 @@ const observer = new IntersectionObserver((entries) => {
 	observer.observe(aboutSection);
   }
   
-  
-  // Handle navigation clicks
-  document.querySelectorAll('a.nav-link').forEach((anchor) => {
-	anchor.addEventListener('click', function (e) {
+  // nav on click
+  document.querySelectorAll("a.nav-link").forEach((anchor) => {
+	anchor.addEventListener("click", function (e) {
 	  e.preventDefault();
-	  const targetId = this.getAttribute('href').slice(1);
+  
+	  const targetId = this.getAttribute("href").slice(1); // Extract the target ID
 	  const targetSection = document.getElementById(targetId);
   
 	  if (targetSection) {
-		const navbarHeight = document.querySelector('.navbar').offsetHeight;
-		const extraOffset = 20; // Space above the section
-		const targetPosition = targetSection.offsetTop - navbarHeight - extraOffset;
+		const navbarHeight = document.querySelector(".navbar").offsetHeight || 0; // Get navbar height
+		const extraOffset = 20; // Optional extra spacing
+		let targetPosition;
   
-		// Smooth scroll to the section
+		if (targetId === "hero") {
+		  // Special case: scroll to the very top for the hero section
+		  targetPosition = 0;
+		} else {
+		  // Calculate position for other sections
+		  targetPosition = targetSection.offsetTop - navbarHeight - extraOffset;
+		}
+  
 		window.scrollTo({
 		  top: targetPosition,
-		  behavior: 'smooth',
+		  behavior: "smooth",
 		});
-  
-		// Replay animations if it's the "About" section
-		if (targetId === 'about') {
-		  setTimeout(replayAnimations, 500); // Delay to allow scrolling to complete
-		}
 	  }
 	});
   });
   
- 
+  
+  window.onload = () => {
+	window.scrollTo({ top: 0, behavior: "auto" }); // Force scroll to the top
+  };
+  
+
+
+  // Force the page to start at the top on refresh
+  window.addEventListener('beforeunload', () => {
+	// Scroll to the hero section explicitly
+	const heroSection = document.getElementById('hero');
+	if (heroSection) {
+	  heroSection.scrollIntoView({ behavior: 'auto', block: 'start' });
+	}
+  });
