@@ -1,251 +1,229 @@
+/****************************
+ * JavaScript Bubble Cursor *
+ * (c)2010-13 mf2fm web-design
+ ****************************/
 
-			var colours=new Array("#1d2250", "#bb1fb2", "#bb1fb2", "#bb1fb2", "#bb1fb2"); // colours for top, right, bottom and left borders and background of bubbles
-			var bubbles=66; // maximum number of bubbles on screen
-			var over_or_under="over"; // set to "over" for bubbles to always be on top, or "under" to allow them to float behind other objects
-			
-			/****************************
-			* JavaScript Bubble Cursor  *
-			*(c)2010-13 mf2fm web-design*
-			*  http://www.mf2fm.com/rv  *
-			* DON'T EDIT BELOW THIS BOX *
-			****************************/
-			var x=ox=400;
-			var y=oy=300;
-			var swide=800;
-			var shigh=600;
-			var sleft=sdown=0;
-			var bubb=new Array();
-			var bubbx=new Array();
-			var bubby=new Array();
-			var bubbs=new Array();
-			var sploosh=false;
-			
-			function addLoadEvent(funky) {
-			  var oldonload=window.onload;
-			  if (typeof(oldonload)!='function') window.onload=funky;
-			  else window.onload=function() {
-				if (oldonload) oldonload();
-				funky();
-			  }
-			}
-			
-			addLoadEvent(buble);
-			
-			function buble() { if (document.getElementById) {
-			  var i, rats, div;
-			  for (i=0; i<bubbles; i++) {
-				rats=createDiv("3px", "3px");
-				rats.style.visibility="hidden";
-				rats.style.zIndex=(over_or_under=="over")?"1001":"0";
-			
-				div=createDiv("auto", "auto");
-				rats.appendChild(div);
-				div=div.style;
-				div.top="1px";
-				div.left="0px";
-				div.bottom="1px";
-				div.right="0px";
-				div.borderLeft="1px solid "+colours[3];
-				div.borderRight="1px solid "+colours[1];
-			
-				div=createDiv("auto", "auto");
-				rats.appendChild(div);
-				div=div.style;
-				div.top="0px";
-				div.left="1px";
-				div.right="1px";
-				div.bottom="0px"
-				div.borderTop="1px solid "+colours[0];
-				div.borderBottom="1px solid "+colours[2];
-			
-				div=createDiv("auto", "auto");
-				rats.appendChild(div);
-				div=div.style;
-				div.left="1px";
-				div.right="1px";
-				div.bottom="1px";
-				div.top="1px";
-				div.backgroundColor=colours[4];
-				if (navigator.appName=="Microsoft Internet Explorer") div.filter="alpha(opacity=50)";
-				else div.opacity=0.5;
-				document.body.appendChild(rats);
-				bubb[i]=rats.style;
-			  }
-			  set_scroll();
-			  set_width();
-			  bubble();
-			}}
-			
-			function bubble() {
-			  var c;
-			  if (Math.abs(x-ox)>1 || Math.abs(y-oy)>1) {
-				ox=x;
-				oy=y;
-				for (c=0; c<bubbles; c++) if (!bubby[c]) {
-				  bubb[c].left=(bubbx[c]=x)+"px";
-				  bubb[c].top=(bubby[c]=y-3)+"px";
-				  bubb[c].width="3px";
-				  bubb[c].height="3px"
-				  bubb[c].visibility="visible";
-				  bubbs[c]=3;
-				  break;
-				}
-			  }
-			  for (c=0; c<bubbles; c++) if (bubby[c]) update_bubb(c);
-			  setTimeout("bubble()", 40);
-			}
-			
-			document.onmousedown=splash;
-			document.onmouseup=function(){clearTimeout(sploosh);};
-			
-			function splash() {
-			  ox=-1;
-			  oy=-1;
-			  sploosh=setTimeout('splash()', 100);
-			}
-			
-			function update_bubb(i) {
-			  if (bubby[i]) {
-				bubby[i]-=bubbs[i]/2+i%2;
-				bubbx[i]+=(i%5-2)/5;
-				if (bubby[i]>sdown && bubbx[i]>sleft && bubbx[i]<sleft+swide+bubbs[i]) {
-				  if (Math.random()<bubbs[i]/shigh*2 && bubbs[i]++<8) {
-					bubb[i].width=bubbs[i]+"px";
-					bubb[i].height=bubbs[i]+"px";
-				  }
-				  bubb[i].top=bubby[i]+"px";
-				  bubb[i].left=bubbx[i]+"px";
-				}
-				else {
-				  bubb[i].visibility="hidden";
-				  bubby[i]=0;
-				  return;
-				}
-			  }
-			}
-			
-			document.onmousemove=mouse;
-			function mouse(e) {
-			  if (e) {
-				y=e.pageY;
-				x=e.pageX;
-			  }
-			  else {
-				set_scroll();
-				y=event.y+sdown;
-				x=event.x+sleft;
-			  }
-			}
-			
-			window.onresize=set_width;
-			function set_width() {
-			  var sw_min=999999;
-			  var sh_min=999999;
-			  if (document.documentElement && document.documentElement.clientWidth) {
-				if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
-				if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
-			  }
-			  if (typeof(self.innerWidth)=='number' && self.innerWidth) {
-				if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
-				if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
-			  }
-			  if (document.body.clientWidth) {
-				if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
-				if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
-			  }
-			  if (sw_min==999999 || sh_min==999999) {
-				sw_min=800;
-				sh_min=600;
-			  }
-			  swide=sw_min;
-			  shigh=sh_min;
-			}
-			
-			window.onscroll=set_scroll;
-			function set_scroll() {
-			  if (typeof(self.pageYOffset)=='number') {
-				sdown=self.pageYOffset;
-				sleft=self.pageXOffset;
-			  }
-			  else if (document.body && (document.body.scrollTop || document.body.scrollLeft)) {
-				sdown=document.body.scrollTop;
-				sleft=document.body.scrollLeft;
-			  }
-			  else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
-				sleft=document.documentElement.scrollLeft;
-				sdown=document.documentElement.scrollTop;
-			  }
-			  else {
-				sdown=0;
-				sleft=0;
-			  }
-			}
-			
-			function createDiv(height, width) {
-			  var div=document.createElement("div");
-			  div.style.position="absolute";
-			  div.style.height=height;
-			  div.style.width=width;
-			  div.style.overflow="hidden";
-			  div.style.backgroundColor="transparent";
-			  return (div);
-			}
-			
-			/* to fix scrolling issues */
-			document.querySelectorAll('a.nav-link').forEach(anchor => {
-				anchor.addEventListener('click', function (e) {
-				  e.preventDefault();
-				  const targetId = this.getAttribute('href').slice(1); // Remove '#' from href
-				  const targetSection = document.getElementById(targetId);
-			  
-				  if (targetSection) {
-					const navbarHeight = document.querySelector('.navbar').offsetHeight; // Navbar height
-					const extraOffset = 30; // Additional space above the section title
-					const targetPosition = targetSection.offsetTop - navbarHeight - extraOffset; // Adjusted scroll position
-			  
-					window.scrollTo({
-					  top: targetPosition,
-					  behavior: 'smooth', // Smooth scrolling
-					});
-				  }
-				});
-			  });
+// Global variables for bubbles
+const colours = ["#1d2250", "#bb1fb2", "#bb1fb2", "#bb1fb2", "#bb1fb2"]; // Colors for borders and bubble backgrounds
+const bubbles = 66; // Max bubbles on screen
+const over_or_under = "over"; // Bubbles on top ("over") or behind other objects ("under")
+let x = 400, y = 300, ox = 400, oy = 300;
+let swide = 800, shigh = 600, sleft = 0, sdown = 0;
+const bubb = [], bubbx = [], bubby = [], bubbs = [];
+
+// Initialize the bubble effect
+function addLoadEvent(callback) {
+  const oldonload = window.onload;
+  window.onload = typeof oldonload !== 'function' ? callback : () => {
+    oldonload && oldonload();
+    callback();
+  };
+}
+
+addLoadEvent(initBubbleCursor);
+
+function initBubbleCursor() {
+  if (!document.getElementById) return;
+
+  for (let i = 0; i < bubbles; i++) {
+    const bubble = createBubble();
+    document.body.appendChild(bubble);
+    bubb[i] = bubble.style;
+  }
+
+  setDimensions();
+  startBubbles();
+}
+
+function createBubble() {
+  const bubble = createDiv("3px", "3px");
+  bubble.style.visibility = "hidden";
+  bubble.style.zIndex = over_or_under === "over" ? "1001" : "0";
+
+  const div1 = createDiv("auto", "auto");
+  div1.style.cssText = `
+    top: 1px;
+    left: 0px;
+    bottom: 1px;
+    right: 0px;
+    border-left: 1px solid ${colours[3]};
+    border-right: 1px solid ${colours[1]};
+  `;
+  bubble.appendChild(div1);
+
+  const div2 = createDiv("auto", "auto");
+  div2.style.cssText = `
+    top: 0px;
+    left: 1px;
+    right: 1px;
+    bottom: 0px;
+    border-top: 1px solid ${colours[0]};
+    border-bottom: 1px solid ${colours[2]};
+  `;
+  bubble.appendChild(div2);
+
+  const div3 = createDiv("auto", "auto");
+  div3.style.cssText = `
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+    top: 1px;
+    background-color: ${colours[4]};
+    opacity: 0.5;
+  `;
+  bubble.appendChild(div3);
+
+  return bubble;
+}
+
+function startBubbles() {
+  if (Math.abs(x - ox) > 1 || Math.abs(y - oy) > 1) {
+    ox = x;
+    oy = y;
+
+    for (let c = 0; c < bubbles; c++) {
+      if (!bubby[c]) {
+        bubb[c].left = `${(bubbx[c] = x)}px`;
+        bubb[c].top = `${(bubby[c] = y - 3)}px`;
+        bubb[c].visibility = "visible";
+        bubbs[c] = 3;
+        break;
+      }
+    }
+  }
+
+  for (let c = 0; c < bubbles; c++) {
+    if (bubby[c]) updateBubble(c);
+  }
+
+  setTimeout(startBubbles, 40);
+}
+
+function updateBubble(i) {
+  if (bubby[i]) {
+    bubby[i] -= bubbs[i] / 2 + i % 2;
+    bubbx[i] += (i % 5 - 2) / 5;
+
+    if (
+      bubby[i] > sdown &&
+      bubbx[i] > sleft &&
+      bubbx[i] < sleft + swide + bubbs[i]
+    ) {
+      if (Math.random() < (bubbs[i] / shigh) * 2 && bubbs[i]++ < 8) {
+        bubb[i].width = `${bubbs[i]}px`;
+        bubb[i].height = `${bubbs[i]}px`;
+      }
+      bubb[i].top = `${bubby[i]}px`;
+      bubb[i].left = `${bubbx[i]}px`;
+    } else {
+      bubb[i].visibility = "hidden";
+      bubby[i] = 0;
+    }
+  }
+}
+
+function createDiv(height, width) {
+  const div = document.createElement("div");
+  div.style.position = "absolute";
+  div.style.height = height;
+  div.style.width = width;
+  div.style.overflow = "hidden";
+  return div;
+}
+
+function setDimensions() {
+  swide = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+  shigh = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+}
+
+// Event handlers
+document.onmousemove = (e) => {
+  x = e.pageX || e.clientX + sleft;
+  y = e.pageY || e.clientY + sdown;
+};
+
+document.onmousedown = () => (ox = oy = -1);
+document.onmouseup = () => clearTimeout(sploosh);
+
+window.onscroll = () => {
+  sleft = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft;
+  sdown = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+};
+
+window.onresize = setDimensions;
+
+/******************************
+ * Smooth Scrolling Navigation *
+ ******************************/
+document.querySelectorAll("a.nav-link").forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+    const targetId = this.getAttribute("href").slice(1);
+    const targetSection = document.getElementById(targetId);
+
+    if (targetSection) {
+      const navbarHeight = document.querySelector(".navbar").offsetHeight;
+      const extraOffset = 20; // Space above section
+      const targetPosition = targetSection.offsetTop - navbarHeight - extraOffset;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      });
+    }
+  });
+});
+
+/******************************
+ * About Section Animations *
+ ******************************/
 
 
-			  /** the about section */
-
-			  // Function to replay animations
+// Function to reset and replay animations
 function replayAnimations() {
 	const aboutImage = document.querySelector('.about-image');
 	const aboutText = document.querySelector('.about-text');
   
-	// Reset animation by removing and re-adding the animated class
+	// Remove animation classes
 	aboutImage.classList.remove('animated');
 	aboutText.classList.remove('animated');
   
-	// Force reflow (trick to restart animation)
+	// Force reflow to reset animations
 	void aboutImage.offsetWidth;
 	void aboutText.offsetWidth;
   
-	// Re-add the animation class
+	// Re-add animation classes
 	aboutImage.classList.add('animated');
 	aboutText.classList.add('animated');
   }
   
-  // Intersection Observer for scrolling
-  const observer = new IntersectionObserver(entries => {
-	entries.forEach(entry => {
+   // Intersection Observer to replay animations when scrolling
+const observer = new IntersectionObserver((entries) => {
+	entries.forEach((entry) => {
+	  const aboutImage = document.querySelector('.about-image');
+	  const aboutText = document.querySelector('.about-text');
+  
 	  if (entry.isIntersecting) {
-		replayAnimations(); // Replay animation when the "About" section is visible
+		// Add animation classes when the section is visible
+		aboutImage.classList.add('animated');
+		aboutText.classList.add('animated');
+	  } else {
+		// Remove animation classes when the section goes out of view
+		aboutImage.classList.remove('animated');
+		aboutText.classList.remove('animated');
 	  }
 	});
   }, { threshold: 0.5 }); // Trigger when 50% of the section is visible
   
   // Observe the "About" section
-  observer.observe(document.getElementById('about'));
+  const aboutSection = document.querySelector('#about');
+  if (aboutSection) {
+	observer.observe(aboutSection);
+  }
+  
   
   // Handle navigation clicks
-  document.querySelectorAll('a.nav-link').forEach(anchor => {
+  document.querySelectorAll('a.nav-link').forEach((anchor) => {
 	anchor.addEventListener('click', function (e) {
 	  e.preventDefault();
 	  const targetId = this.getAttribute('href').slice(1);
@@ -253,7 +231,7 @@ function replayAnimations() {
   
 	  if (targetSection) {
 		const navbarHeight = document.querySelector('.navbar').offsetHeight;
-		const extraOffset = 20; // Add space above the section
+		const extraOffset = 20; // Space above the section
 		const targetPosition = targetSection.offsetTop - navbarHeight - extraOffset;
   
 		// Smooth scroll to the section
@@ -270,18 +248,4 @@ function replayAnimations() {
 	});
   });
   
-			  
-			  
-
-
-			  
-			  
-			  
-			
-			
-			
-			
-			
-			
-			
-			
+ 
